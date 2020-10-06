@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const APP_NAME = "Boilerplate API";
+const APP_NAME = "Comparison API";
 const ENV = process.env.NODE_ENV;
 const PORT = process.env.PORT || 5000;
 

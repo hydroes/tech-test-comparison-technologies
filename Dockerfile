@@ -1,6 +1,6 @@
 FROM node:12.18.4
 
-LABEL MAINTAINER Michael Hueter <mthueter@gmail.com>
+LABEL MAINTAINER Brian Gouws <briangouws@gmail.com>
 
 RUN npm install pm2@latest --global --quiet
 # add local user for security

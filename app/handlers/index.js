@@ -1,3 +1,3 @@
 exports.errorHandler = require("./error");
-exports.thingHandler = require("./thing");
-exports.thingsHandler = require("./things");
+exports.messageHandler = require("./message");
+exports.messagesHandler = require("./messages");

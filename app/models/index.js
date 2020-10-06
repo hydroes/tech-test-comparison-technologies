@@ -1,1 +1,1 @@
-exports.Thing = require("./Thing");
+exports.Message = require("./Message");

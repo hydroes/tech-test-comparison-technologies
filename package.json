@@ -1,12 +1,8 @@
 {
-  "author": "Michael Hueter <mthueter@gmail.com>",
-  "version": "2.0.0",
-  "name": "docker-node-express-boilerplate",
-  "description": "Boilerplate Dockerized Express code to launch new RESTful APIs.",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:mhueter/docker-node-express-boilerplate.git"
-  },
+  "author": "Brian Gouws",
+  "version": "1.0.0",
+  "name": "comparison-technologies",
+  "description": "A simple rest service for creating/retrieving messages.",
   "main": "app/app.js",
   "scripts": {
     "test": "jest"

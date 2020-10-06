@@ -5,8 +5,8 @@ const app = require("../app/app");
 const request = require("supertest");
 const mongoose = require("mongoose");
 
-let { Thing } = require("../app/models");
-let exampleThing = {
+let { Message } = require("../app/models");
+let exampleMessage = {
   name: "Example",
   number: 5,
   stuff: ["cats", "dogs"],
@@ -14,12 +14,12 @@ let exampleThing = {
 };
 
 beforeEach(async () => {
-  const testThing = new Thing(exampleThing);
-  await testThing.save();
+  const testMessage = new Message(exampleMessage);
+  await testMessage.save();
 });
 
 afterEach(async () => {
-  await mongoose.connection.dropCollection("things");
+  await mongoose.connection.dropCollection("messages");
 });
 
 afterAll(async () => {
@@ -28,52 +28,37 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-describe("GET /things", () => {
-  test("Get a list of things", async () => {
-    let response = await request(app).get("/things");
-    expect(response.body).toEqual([exampleThing]);
+describe("GET /messages", () => {
+  test("Get a list of messages", async () => {
+    let response = await request(app).get("/messages");
+    expect(response.body).toEqual([exampleMessage]);
   });
 });
 
-describe("POST /things", () => {
-  test("Create a mini new Thing", async () => {
+describe("POST /messages", () => {
+  test("Create a mini new Message", async () => {
     let response = await request(app)
-      .post("/things")
-      .send({ name: "A Thing" });
-    expect(response.body).toEqual({ name: "A Thing", stuff: [] });
+      .post("/messages")
+      .send({ name: "A Message" });
+    expect(response.body).toEqual({ name: "A Message", stuff: [] });
   });
-  test("Create a full new Thing", async () => {
-    const fullThing = {
-      name: "Other Thing",
+  test("Create a full new Message", async () => {
+    const fullMessage = {
+      name: "Other Message",
       stuff: ["cats", "dogs"],
       number: 5,
       url: "http://google.com"
     };
     let response = await request(app)
-      .post("/things")
-      .send(fullThing);
-    expect(response.body).toEqual(fullThing);
+      .post("/messages")
+      .send(fullMessage);
+    expect(response.body).toEqual(fullMessage);
   });
-  test("Cannot Create Things with the Same Name", async () => {
+  test("Cannot Create Messages with the Same Name", async () => {
     let response = await request(app)
-      .post("/things")
+      .post("/messages")
       .send({ name: "Example" });
     expect(response.status).toEqual(409);
   });
 });
 
-describe("PATCH /things/:name", () => {
-  test("Update a thing's name", async () => {
-    let response = await request(app)
-      .patch("/things/Example")
-      .send({ name: "New Name" });
-    expect(response.body).toEqual({ ...exampleThing, name: "New Name" });
-  });
-});
-
-describe("DELETE /things/:name", () => {
-  test("Delete a thing name", async () => {
-    let response = await request(app).delete("/things/Example");
-    expect(response.body).toEqual(exampleThing);
-  });
-});
