@@ -3,14 +3,14 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "name": {
+    "message": {
       "type": "string"
     },
     "number": {
       "type": "integer",
       "minimum": 0
     },
-    "stuff": {
+    "tags": {
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
@@ -23,5 +23,7 @@
       "format": "uri"
     }
   },
-  "required": ["name"]
+  "required": [
+    "message"
+  ]
 }

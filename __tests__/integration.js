@@ -1,5 +1,5 @@
 /**
- * These tests currently only work if you have a local MongoDB database
+ * a local Mongo DB is needed to run these tests
  */
 const app = require("../app/app");
 const request = require("supertest");
@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 
 let { Message } = require("../app/models");
 let exampleMessage = {
-  name: "Example",
+  message: "Example",
   number: 5,
-  stuff: ["cats", "dogs"],
+  tags: ["cats", "dogs"],
   url: "https://google.com"
 };
 
@@ -39,13 +39,13 @@ describe("POST /messages", () => {
   test("Create a mini new Message", async () => {
     let response = await request(app)
       .post("/messages")
-      .send({ name: "A Message" });
-    expect(response.body).toEqual({ name: "A Message", stuff: [] });
+      .send({ message: "A Message" });
+    expect(response.body).toEqual({ message: "A Message", tags: [] });
   });
   test("Create a full new Message", async () => {
     const fullMessage = {
-      name: "Other Message",
-      stuff: ["cats", "dogs"],
+      message: "Other Message",
+      tags: ["cats", "dogs"],
       number: 5,
       url: "http://google.com"
     };
@@ -54,10 +54,10 @@ describe("POST /messages", () => {
       .send(fullMessage);
     expect(response.body).toEqual(fullMessage);
   });
-  test("Cannot Create Messages with the Same Name", async () => {
+  test("Cannot Create Messages with the Same Message", async () => {
     let response = await request(app)
       .post("/messages")
-      .send({ name: "Example" });
+      .send({ message: "Example" });
     expect(response.status).toEqual(409);
   });
 });

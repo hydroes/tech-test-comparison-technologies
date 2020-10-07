@@ -8,9 +8,9 @@ const { APIError } = require("../helpers");
 const Schema = mongoose.Schema;
 
 const messageSchema = new Schema({
-  name: String,
+  message: String,
   number: Number,
-  stuff: [String],
+  tags: [String],
   url: String
 });
 
@@ -21,12 +21,12 @@ messageSchema.statics = {
    * @returns {Promise<Message, APIError>}
    */
   async createMessage(newMessage) {
-    const duplicate = await this.findOne({ name: newMessage.name });
+    const duplicate = await this.findOne({ message: newMessage.message });
     if (duplicate) {
       throw new APIError(
         409,
         "Message Already Exists",
-        `There is already a message with name '${newMessage.name}'.`
+        `There is already a message with name '${newMessage.message}'.`
       );
     }
     const message = await newMessage.save();
@@ -58,7 +58,7 @@ messageSchema.statics = {
     const messages = await this.find(query, fields)
       .skip(skip)
       .limit(limit)
-      .sort({ name: 1 })
+      .sort({ message: 1 })
       .exec();
     if (!messages.length) {
       return [];
@@ -77,6 +77,6 @@ messageSchema.options.toObject.transform = (doc, ret) => {
 };
 
 /** Ensure MongoDB Indices **/
-messageSchema.index({ name: 1, number: 1 }, { unique: true }); // example compound idx
+messageSchema.index({ message: 1, number: 1 }, { unique: true }); // example compound idx
 
 module.exports = mongoose.model("Messages", messageSchema);

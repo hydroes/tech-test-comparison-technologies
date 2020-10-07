@@ -1,7 +1,6 @@
 // npm packages
 const dotenv = require("dotenv");
 const express = require("express");
-Promise = require("bluebird"); // eslint-disable-line
 
 // app imports
 const { connectToDatabase, globalResponseHeaders } = require("./config");
