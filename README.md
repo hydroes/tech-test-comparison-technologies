@@ -5,6 +5,12 @@
 
 MIT License. 
 
+## Trade offs:
+I would implement more unit tests and get 100% test coverage.
+I would implement contract tests
+I would try performance test using a framework like swarm
+I would would use the paradigm of working smarter and not harder more
+
 ## About
 
 This configuration is a backend [RESTful API] with the following pieces
